@@ -1,0 +1,949 @@
+diff --git a/index.html b/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..09e11eceaf0530863759e2b2996597b5de01cb35
+--- /dev/null
++++ b/index.html
+@@ -0,0 +1,943 @@
++<!DOCTYPE html>
++<html lang="pt-BR">
++<head>
++  <meta charset="UTF-8" />
++  <title>Nos Bastidores da Disney</title>
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
++  <style>
++    :root {
++      --bg-gradient: radial-gradient(circle at top, #1a4ed8 0%, #020528 55%, #02041a 100%);
++      --bg-section: rgba(7, 16, 60, 0.9);
++      --bg-card: rgba(6, 16, 64, 0.96);
++      --bg-card-soft: rgba(10, 26, 80, 0.9);
++      --text-main: #ffffff;
++      --text-muted: #c3d4ff;
++      --accent: #ffd54a;
++      --accent-strong: #ffcc00;
++      --border-soft: rgba(255, 255, 255, 0.08);
++      --shadow-soft: 0 20px 45px rgba(0, 0, 0, 0.6);
++    }
++
++    body.dark-mode {
++      --bg-gradient: radial-gradient(circle at top, #02041a 0%, #020312 50%, #000000 100%);
++      --bg-section: rgba(3, 8, 30, 0.96);
++      --bg-card: rgba(6, 10, 40, 0.98);
++      --bg-card-soft: rgba(5, 10, 30, 0.96);
++      --text-main: #f5f7ff;
++      --text-muted: #a8b3ff;
++      --accent: #ffd95a;
++      --accent-strong: #ffcf33;
++      --border-soft: rgba(255, 255, 255, 0.12);
++      --shadow-soft: 0 24px 55px rgba(0, 0, 0, 0.85);
++    }
++
++    * {
++      box-sizing: border-box;
++      scroll-behavior: smooth;
++    }
++
++    body {
++      margin: 0;
++      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
++      color: var(--text-main);
++      background: #02041a;
++      background-image: var(--bg-gradient);
++      min-height: 100vh;
++    }
++
++    header {
++      position: fixed;
++      top: 0;
++      left: 0;
++      right: 0;
++      z-index: 20;
++      padding: 16px 6vw;
++      display: flex;
++      align-items: center;
++      justify-content: space-between;
++      backdrop-filter: blur(18px);
++      background: linear-gradient(to bottom, rgba(2, 4, 25, 0.92), rgba(2, 4, 25, 0.75), transparent);
++      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
++    }
++
++    .logo {
++      font-weight: 700;
++      font-size: 1.1rem;
++      letter-spacing: 0.08em;
++      text-transform: uppercase;
++      color: var(--accent);
++    }
++
++    .nav-links {
++      display: flex;
++      gap: 18px;
++      font-size: 0.9rem;
++    }
++
++    .nav-links a {
++      color: var(--text-muted);
++      text-decoration: none;
++      position: relative;
++      padding-bottom: 2px;
++    }
++
++    .nav-links a::after {
++      content: "";
++      position: absolute;
++      left: 0;
++      bottom: 0;
++      width: 0;
++      height: 2px;
++      background: linear-gradient(90deg, #ffd54a, #7aa2ff);
++      border-radius: 999px;
++      transition: width 0.25s ease;
++    }
++
++    .nav-links a:hover::after {
++      width: 100%;
++    }
++
++    .dark-toggle {
++      padding: 8px 18px;
++      border-radius: 999px;
++      border: 1px solid rgba(255, 255, 255, 0.12);
++      background: radial-gradient(circle at top, #3053ff 0%, #1f35a8 40%, #0b0f3b 100%);
++      color: #fff;
++      font-size: 0.85rem;
++      cursor: pointer;
++      font-weight: 500;
++      box-shadow: 0 12px 30px rgba(22, 45, 160, 0.65);
++      display: inline-flex;
++      align-items: center;
++      gap: 8px;
++      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.25s ease;
++    }
++
++    .dark-toggle span {
++      font-size: 0.9rem;
++    }
++
++    .dark-toggle:hover {
++      transform: translateY(-1px);
++      box-shadow: 0 18px 35px rgba(25, 55, 190, 0.8);
++    }
++
++    main {
++      padding-top: 86px;
++    }
++
++    /* HERO */
++    .hero {
++      position: relative;
++      min-height: 70vh;
++      display: flex;
++      align-items: center;
++      justify-content: center;
++      text-align: center;
++      padding: 80px 6vw 100px;
++      color: #fff;
++      overflow: hidden;
++    }
++
++    .hero::before {
++      content: "";
++      position: absolute;
++      inset: 0;
++      background:
++        radial-gradient(circle at top left, rgba(255, 213, 74, 0.14), transparent 55%),
++        radial-gradient(circle at bottom right, rgba(120, 177, 255, 0.25), transparent 60%);
++      mix-blend-mode: screen;
++      pointer-events: none;
++    }
++
++    .hero-bg {
++      position: absolute;
++      inset: 0;
++      background:
++        linear-gradient(135deg, rgba(2, 6, 34, 0.92), rgba(11, 21, 74, 0.88), rgba(2, 4, 26, 0.95)),
++        url("https://drive.google.com/uc?export=view&id=1Vvnk2Y2ziWUIgTItqj4Fw6LaF1L8y6cg")
++          center/cover no-repeat;
++      background-blend-mode: overlay;
++      filter: saturate(1.2) contrast(1.05);
++      transform: scale(1.03);
++      z-index: -2;
++    }
++
++    .hero-content {
++      max-width: 820px;
++      position: relative;
++      z-index: 2;
++    }
++
++    .hero-pill {
++      display: inline-flex;
++      align-items: center;
++      gap: 10px;
++      padding: 6px 14px;
++      border-radius: 999px;
++      background: rgba(4, 12, 46, 0.8);
++      border: 1px solid rgba(255, 213, 74, 0.4);
++      font-size: 0.75rem;
++      text-transform: uppercase;
++      letter-spacing: 0.15em;
++      color: var(--accent);
++      margin-bottom: 18px;
++    }
++
++    .hero-pill-dot {
++      width: 7px;
++      height: 7px;
++      border-radius: 50%;
++      background: var(--accent-strong);
++      box-shadow: 0 0 12px rgba(255, 213, 74, 0.9);
++    }
++
++    h1.hero-title {
++      font-size: clamp(2.6rem, 4vw, 3.3rem);
++      line-height: 1.1;
++      margin: 0 0 14px;
++      text-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
++    }
++
++    .hero-title span {
++      display: inline-block;
++      background: linear-gradient(90deg, #ffd54a, #ffffff);
++      -webkit-background-clip: text;
++      background-clip: text;
++      color: transparent;
++    }
++
++    .hero-subtitle {
++      font-size: 1rem;
++      max-width: 640px;
++      margin: 0 auto 24px;
++      color: var(--text-muted);
++      min-height: 2.5em;
++      opacity: 0.95;
++    }
++
++    .typing-cursor {
++      display: inline-block;
++      width: 1px;
++      background: #ffffff;
++      margin-left: 4px;
++      animation: blink 0.9s infinite;
++      height: 1em;
++      vertical-align: middle;
++    }
++
++    @keyframes blink {
++      0%, 50% { opacity: 1; }
++      50.01%, 100% { opacity: 0; }
++    }
++
++    .hero-cta {
++      display: flex;
++      justify-content: center;
++      gap: 14px;
++      flex-wrap: wrap;
++      margin-top: 10px;
++    }
++
++    .btn-primary {
++      padding: 12px 24px;
++      border-radius: 999px;
++      border: none;
++      cursor: pointer;
++      font-weight: 600;
++      font-size: 0.95rem;
++      letter-spacing: 0.03em;
++      text-transform: uppercase;
++      background: linear-gradient(135deg, #ffd54a, #ffb300);
++      color: #1b1708;
++      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.65);
++      display: inline-flex;
++      align-items: center;
++      gap: 8px;
++      text-decoration: none;
++      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
++    }
++
++    .btn-primary:hover {
++      transform: translateY(-1px);
++      filter: brightness(1.02);
++      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
++    }
++
++    .btn-secondary {
++      padding: 12px 22px;
++      border-radius: 999px;
++      background: rgba(7, 16, 60, 0.86);
++      border: 1px solid rgba(173, 194, 255, 0.4);
++      color: var(--text-main);
++      font-size: 0.9rem;
++      letter-spacing: 0.03em;
++      cursor: pointer;
++      display: inline-flex;
++      align-items: center;
++      gap: 8px;
++      text-transform: uppercase;
++      text-decoration: none;
++      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
++      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
++    }
++
++    .btn-secondary:hover {
++      transform: translateY(-1px);
++      background: rgba(9, 22, 80, 0.96);
++      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.75);
++    }
++
++    /* CONTENT SECTIONS */
++
++    .section {
++      padding: 60px 6vw;
++      max-width: 1100px;
++      margin: 0 auto;
++    }
++
++    .section-card {
++      background: var(--bg-section);
++      border-radius: 32px;
++      padding: 36px 28px;
++      border: 1px solid var(--border-soft);
++      box-shadow: var(--shadow-soft);
++      position: relative;
++      overflow: hidden;
++    }
++
++    .section-card::before {
++      content: "";
++      position: absolute;
++      inset: 0;
++      background: radial-gradient(circle at top left, rgba(255, 213, 74, 0.08), transparent 50%);
++      opacity: 0.8;
++      pointer-events: none;
++    }
++
++    .section-title {
++      font-size: 1.4rem;
++      margin: 0 0 14px;
++    }
++
++    .section-subtitle {
++      font-size: 0.9rem;
++      color: var(--text-muted);
++      margin-bottom: 24px;
++      max-width: 620px;
++    }
++
++    p {
++      line-height: 1.65;
++      color: var(--text-main);
++      font-size: 0.95rem;
++    }
++
++    .two-column {
++      display: grid;
++      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
++      gap: 32px;
++      align-items: start;
++      margin-top: 12px;
++    }
++
++    .ebook-cover {
++      background: var(--bg-card-soft);
++      padding: 20px;
++      border-radius: 24px;
++      border: 1px solid var(--border-soft);
++      text-align: center;
++      box-shadow: var(--shadow-soft);
++    }
++
++    .ebook-cover img {
++      max-width: 100%;
++      border-radius: 12px;
++      display: block;
++      margin: 0 auto 14px;
++      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
++    }
++
++    .ebook-cover small {
++      display: block;
++      font-size: 0.8rem;
++      color: var(--text-muted);
++    }
++
++    .chapters-grid {
++      display: grid;
++      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
++      gap: 18px;
++      margin-top: 18px;
++    }
++
++    .chapter-card {
++      background: var(--bg-card);
++      border-radius: 20px;
++      padding: 16px 16px 18px;
++      border: 1px solid var(--border-soft);
++      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.75);
++    }
++
++    .chapter-title {
++      font-weight: 600;
++      margin-bottom: 6px;
++      color: var(--accent);
++      font-size: 0.95rem;
++    }
++
++    .chapter-text {
++      font-size: 0.87rem;
++      color: var(--text-muted);
++      line-height: 1.55;
++    }
++
++    .tips-list {
++      margin-top: 14px;
++      padding-left: 18px;
++    }
++
++    .tips-list li {
++      margin-bottom: 10px;
++      font-size: 0.9rem;
++      color: var(--text-muted);
++    }
++
++    .highlight-box {
++      background: var(--bg-card-soft);
++      border-radius: 22px;
++      padding: 20px 18px;
++      border: 1px solid var(--border-soft);
++      margin-top: 16px;
++    }
++
++    .highlight-title {
++      font-size: 1rem;
++      margin-bottom: 8px;
++      color: var(--accent);
++      font-weight: 600;
++    }
++
++    .integrante-name {
++      font-weight: 600;
++      margin-bottom: 4px;
++    }
++
++    .integrante-role {
++      font-size: 0.9rem;
++      color: var(--text-muted);
++      margin-bottom: 10px;
++    }
++
++    /* VITRINE – ONDE COMPRAR */
++
++    .store-section {
++      margin-top: 40px;
++    }
++
++    .store-grid {
++      display: grid;
++      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.8fr);
++      gap: 32px;
++      align-items: center;
++    }
++
++    @media (max-width: 880px) {
++      .store-grid {
++        grid-template-columns: minmax(0, 1fr);
++      }
++    }
++
++    .store-card {
++      background: radial-gradient(circle at top, rgba(255, 213, 74, 0.18), transparent 60%),
++                  var(--bg-card);
++      border-radius: 26px;
++      padding: 18px 18px 20px;
++      border: 1px solid var(--border-soft);
++      box-shadow: var(--shadow-soft);
++      text-align: center;
++    }
++
++    .store-card img {
++      max-width: 200px;
++      width: 100%;
++      margin: 0 auto 14px;
++      border-radius: 12px;
++      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9);
++      display: block;
++    }
++
++    .store-book-title {
++      font-weight: 600;
++      font-size: 0.95rem;
++      margin-bottom: 6px;
++    }
++
++    .store-badge {
++      display: inline-flex;
++      align-items: center;
++      gap: 8px;
++      padding: 4px 10px;
++      border-radius: 999px;
++      background: rgba(7, 16, 60, 0.9);
++      color: var(--accent);
++      font-size: 0.72rem;
++      text-transform: uppercase;
++      letter-spacing: 0.12em;
++      margin-bottom: 10px;
++    }
++
++    .store-badge-dot {
++      width: 7px;
++      height: 7px;
++      border-radius: 999px;
++      background: var(--accent-strong);
++      box-shadow: 0 0 10px rgba(255, 213, 74, 0.9);
++    }
++
++    .store-card small {
++      display: block;
++      font-size: 0.78rem;
++      color: var(--text-muted);
++      margin-bottom: 12px;
++    }
++
++    .store-text p {
++      color: var(--text-muted);
++      font-size: 0.93rem;
++    }
++
++    footer {
++      text-align: center;
++      padding: 32px 6vw 24px;
++      font-size: 0.8rem;
++      color: var(--text-muted);
++    }
++
++    footer span {
++      color: var(--accent);
++    }
++
++    @media (max-width: 900px) {
++      .two-column {
++        grid-template-columns: 1fr;
++      }
++
++      .section-card {
++        padding: 26px 20px;
++      }
++    }
++
++    @media (max-width: 680px) {
++      header {
++        padding-inline: 16px;
++      }
++
++      .nav-links {
++        display: none;
++      }
++
++      .hero {
++        padding-inline: 18px;
++      }
++
++      .section {
++        padding-inline: 18px;
++      }
++    }
++  </style>
++</head>
++<body>
++  <header>
++    <div class="logo">Projeto Disney</div>
++    <nav class="nav-links">
++      <a href="#sobre">Sobre a Disney</a>
++      <a href="#autor">Autor</a>
++      <a href="#capitulos">Capítulos</a>
++      <a href="#comprar">Onde comprar</a>
++    </nav>
++    <button class="dark-toggle" id="darkToggle">
++      <span>Modo Dark</span> 🌙
++    </button>
++  </header>
++
++  <main>
++    <!-- HERO -->
++    <section class="hero">
++      <div class="hero-bg"></div>
++
++      <div class="hero-content">
++        <div class="hero-pill">
++          <div class="hero-pill-dot"></div>
++          <span>Bastidores da magia Disney</span>
++        </div>
++
++        <h1 class="hero-title">
++          <span>Nos Bastidores da Disney</span>
++        </h1>
++
++        <p class="hero-subtitle">
++          <span id="typingText" data-text="Os segredos do sucesso da mais poderosa empresa de diversões do mundo."></span>
++          <span class="typing-cursor"></span>
++        </p>
++
++        <div class="hero-cta">
++          <a class="btn-primary" href="#comprar">
++            Comprar o livro
++            <span>➜</span>
++          </a>
++          <a class="btn-secondary" href="#capitulos">
++            Ver resumo dos capítulos
++          </a>
++        </div>
++      </div>
++    </section>
++
++    <!-- SOBRE A DISNEY + CAPA -->
++    <section class="section" id="sobre">
++      <div class="section-card">
++        <h2 class="section-title">Sobre a Disney</h2>
++        <p class="section-subtitle">
++          Entenda por que a Disney é referência mundial em encantamento, atendimento e experiências memoráveis.
++        </p>
++
++        <div class="two-column">
++          <div>
++            <p>
++              A Disney é mundialmente reconhecida por entregar experiências que ultrapassam o entretenimento
++              e criam memórias afetivas duradouras. Sua magia não é fruto do acaso, mas da soma de processos
++              rigorosos, treinamentos constantes e cultura organizacional forte. Cada detalhe é construído com
++              intenção para despertar emoções e reforçar a sensação de encantamento.
++            </p>
++            <div class="highlight-box">
++              <div class="highlight-title">Capa do Ebook</div>
++              <p>
++                A capa de <strong>“Nos Bastidores da Disney”</strong> traduz visualmente a proposta do livro:
++                revelar os segredos por trás da empresa de diversões mais poderosa do mundo e mostrar como o
++                encantamento é, na verdade, resultado de método, cultura e disciplina.
++              </p>
++            </div>
++          </div>
++
++          <div class="ebook-cover">
++            <img
++              src="https://m.media-amazon.com/images/I/61vNV+WKpSL._SY466_.jpg"
++              alt="Capa do livro Nos Bastidores da Disney"
++            />
++            <small>
++              Capa ilustrativa do livro “Nos Bastidores da Disney”.
++              Para trocar a imagem, substitua a URL no atributo
++              <code>src</code> pelo endereço da nova capa.
++            </small>
++          </div>
++        </div>
++      </div>
++    </section>
++
++    <!-- SOBRE O AUTOR + SINOPSE -->
++    <section class="section" id="autor">
++      <div class="section-card">
++        <h2 class="section-title">Sobre o Autor — Tom Connellan</h2>
++        <p>
++          Tom Connellan é especialista em comportamento organizacional, liderança e excelência operacional.
++          Reconhecido por transformar conceitos complexos em práticas aplicáveis, ele apresenta no livro
++          uma visão clara de como a Disney mantém sua reputação de excelência por décadas. Sua abordagem une
++          narrativa acessível e insights profundos sobre cultura, pessoas e processos.
++        </p>
++
++        <div class="highlight-box" style="margin-top: 22px;">
++          <div class="highlight-title">Sinopse</div>
++          <p>
++            A Disneyworld é um dos destinos mais visitados e admirados do mundo, com uma taxa excepcional
++            de retorno de visitantes. O livro revela os princípios e práticas que sustentam essa fidelização
++            extraordinária, mostrando como a Disney combina cultura, treinamento e encantamento para gerar
++            experiências memoráveis. Também destaca como esses métodos podem ser aplicados a qualquer negócio.
++          </p>
++        </div>
++      </div>
++    </section>
++
++    <!-- RESUMO DOS CAPÍTULOS -->
++    <section class="section" id="capitulos">
++      <div class="section-card">
++        <h2 class="section-title">Resumo dos 14 Capítulos</h2>
++        <p class="section-subtitle">
++          Uma visão geral dos principais conceitos apresentados em “Nos Bastidores da Disney” e como eles
++          se conectam à construção de experiências extraordinárias.
++        </p>
++
++        <div class="chapters-grid">
++          <div class="chapter-card">
++            <div class="chapter-title">1. A Chegada ao Complexo</div>
++            <div class="chapter-text">
++              A Disney impressiona pela organização impecável desde o primeiro instante. Cada etapa é
++              planejada para causar impacto emocional. A experiência começa antes mesmo de entrar no parque.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">2. Bastidores Importam</div>
++            <div class="chapter-text">
++              Os bastidores são tão importantes quanto as áreas visíveis. Um ambiente interno organizado
++              reflete em atendimento melhor. O cliente sente a diferença mesmo sem ver o backstage.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">3. A Regra dos Detalhes</div>
++            <div class="chapter-text">
++              Cada detalhe contribui para a magia percebida. Sons, cheiros e ambiente são construídos
++              intencionalmente. A soma dos microelementos gera encantamento.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">4. Encantar é Estratégico</div>
++            <div class="chapter-text">
++              Encantamento é entendido como processo replicável. Momentos de surpresa são treinados e
++              incentivados. Pequenos gestos criam memórias afetivas fortes.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">5. Cultura Viva</div>
++            <div class="chapter-text">
++              A cultura Disney é executada por todos diariamente. Ela se manifesta em atitudes e
++              comportamentos, não apenas em slogans. Isso garante consistência por décadas.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">6. A Jornada do Cliente</div>
++            <div class="chapter-text">
++              A experiência é pensada para ser intuitiva e sem atritos. O visitante é guiado sem perceber.
++              Cada etapa elimina dúvidas e reforça conforto emocional.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">7. Atendimento Intencional</div>
++            <div class="chapter-text">
++              O atendimento é humano, proativo e gentil. Funcionários têm autonomia para agir rapidamente.
++              A combinação de padronização e empatia gera excelência.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">8. Pessoas Como Base</div>
++            <div class="chapter-text">
++              A Disney prioriza atitude na contratação. A cultura busca perfis alinhados aos valores
++              organizacionais. Comportamentos certos são mais importantes que técnica.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">9. Treinamento Contínuo</div>
++            <div class="chapter-text">
++              O treinamento nunca termina, mantendo padrões elevados. A Disney University reforça valores
++              diariamente. Profissionais capacitados entregam experiências melhores.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">10. Reconhecimento Estratégico</div>
++            <div class="chapter-text">
++              Elogios rápidos reforçam comportamentos positivos. O reconhecimento cria motivação genuína.
++              Culturas fortes celebram acertos constantemente.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">11. Processos Invisíveis</div>
++            <div class="chapter-text">
++              Limpeza e manutenção constantes sustentam a excelência. O público não vê, mas percebe a
++              eficiência. O invisível torna o visível impecável.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">12. Segurança Primeiro</div>
++            <div class="chapter-text">
++              Segurança é prioridade máxima. O visitante só relaxa quando se sente protegido. Sem
++              segurança, não existe encantamento verdadeiro.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">13. Inovação Permanente</div>
++            <div class="chapter-text">
++              A Disney se reinventa continuamente. A inovação é tratada como rotina, não evento isolado.
++              Isso mantém relevância e encantamento ao longo dos anos.
++            </div>
++          </div>
++
++          <div class="chapter-card">
++            <div class="chapter-title">14. Aplicações no Mundo Real</div>
++            <div class="chapter-text">
++              Os princípios Disney podem ser aplicados em qualquer empresa. Excelência é fruto de cultura,
++              método e repetição. O encantamento é um processo replicável.
++            </div>
++          </div>
++        </div>
++      </div>
++    </section>
++
++    <!-- OPINIÃO + DICAS PRÁTICAS -->
++    <section class="section">
++      <div class="section-card">
++        <h2 class="section-title">Opinião do Integrante</h2>
++
++        <p>
++          A leitura de “Nos Bastidores da Disney” ampliou profundamente minha percepção sobre atendimento,
++          cultura e excelência operacional. O livro demonstra que resultados extraordinários não surgem de
++          improviso, mas sim de processos consistentes praticados todos os dias. O que mais me marcou foi
++          entender como a Disney valoriza pessoas, treina comportamentos e transforma pequenos detalhes em
++          grandes diferenciais. Essa perspectiva me fez enxergar que encantamento é consequência direta de
++          disciplina, intencionalidade e cuidado. Saí da leitura com uma visão muito mais clara de como
++          pequenas atitudes podem fortalecer uma empresa e gerar experiências memoráveis.
++        </p>
++
++        <div class="highlight-box" style="margin-top: 24px;">
++          <div class="highlight-title">Dicas Práticas do Livro</div>
++          <ul class="tips-list">
++            <li>
++              <strong>Cuide do invisível:</strong> processos internos sólidos refletem em experiências externas
++              melhores. O cliente percebe até o que não vê diretamente.
++            </li>
++            <li>
++              <strong>Treinamento constante:</strong> excelência não é conquistada uma vez, mas sustentada por
++              repetição diária. Equipes bem treinadas entregam resultados consistentes.
++            </li>
++            <li>
++              <strong>Reconhecimento imediato:</strong> elogios reforçam comportamentos positivos mais rápido
++              do que qualquer manual. Reconhecer motiva, humaniza e fortalece a cultura.
++            </li>
++            <li>
++              <strong>Reduza atritos:</strong> cada obstáculo removido melhora a jornada do cliente. A fluidez
++              da experiência impacta diretamente a percepção de valor.
++            </li>
++            <li>
++              <strong>Excelência é método:</strong> quando processos são claros e repetíveis, a qualidade deixa
++              de depender de sorte. Excelência se torna parte da identidade da empresa.
++            </li>
++          </ul>
++        </div>
++
++        <div class="highlight-box" style="margin-top: 24px;">
++          <div class="highlight-title">Integrantes</div>
++          <div class="integrante-name">Pedro Zen</div>
++          <div class="integrante-role">
++            Responsável pelo desenvolvimento completo do site, criação textual, revisão dos conteúdos e
++            estruturação visual.
++          </div>
++          <p>
++            Contribuiu com interpretação crítica do livro e organização geral do projeto acadêmico, conectando
++            os conceitos de bastidores, cultura e encantamento ao contexto de negócios e atendimento ao cliente.
++          </p>
++        </div>
++      </div>
++    </section>
++
++    <!-- ONDE COMPRAR – VITRINE -->
++    <section class="section store-section" id="comprar">
++      <div class="section-card">
++        <h2 class="section-title">Onde Comprar o Livro</h2>
++        <p class="section-subtitle">
++          “Nos Bastidores da Disney” é indicado para estudantes e profissionais que desejam aprimorar gestão,
++          atendimento e cultura organizacional. Veja abaixo a vitrine com o livro e acesse diretamente a
++          Amazon para adquirir o seu exemplar.
++        </p>
++
++        <div class="store-grid">
++          <div class="store-card">
++            <div class="store-badge">
++              <div class="store-badge-dot"></div>
++              Disponível na Amazon
++            </div>
++
++            <img
++              src="https://m.media-amazon.com/images/I/61vNV+WKpSL._SY466_.jpg"
++              alt="Nos bastidores da Disney: Os segredos do sucesso da mais poderosa empresa de diversões do mundo"
++            />
++
++            <div class="store-book-title">
++              Nos bastidores da Disney: Os segredos do sucesso da mais poderosa empresa de diversões do mundo
++            </div>
++            <small>
++              Clique no botão abaixo para comprar diretamente na Amazon em uma página externa segura.
++            </small>
++
++            <a
++              class="btn-primary"
++              href="https://www.amazon.com.br/Nos-Bastidores-Disney-Tom-Connellan/dp/8502102508/ref=sr_1_1?adgrpid=82432069158&dib=eyJ2IjoiMSJ9.T0xe9Kk1m7VuWKQ0LZT-ItIJK04UnWWuzpTNkd8nuACWxFGBP6t_Y9d_5H31iJwmh7cnTrn_5N4pBdHvPlt-_lqL7_tmD6hT38BWAAqYMZcYnU9pE1tubKjRylYwdgO_RcpNCzl9jvVcERwceVwNByOWwRlY5h_5BY2bDFh-bR7qQBI5BmUimB09JMJvVmHensAse09eGelCVajPqULwgyn4jRR33X3ksVABKtcqCngNf8isX43IW1GmjX3AKslNA3pQnLpLuq0rABy2VYZ91L8VhAe02nSJGhuLRmNMtQM.rsjcZlybj-xOqXGWsLGSdC_7vEzogr66RaD-3EzKt3w&dib_tag=se&hvadid=478029890318&hvdev=c&hvlocphy=1031520&hvnetw=g&hvqmt=e&hvrand=12510055329549061757&hvtargid=kwd-337802106608&hydadcr=5682_13048251&keywords=livro+nos+bastidores+da+disney&mcid=0adc939d5d663effaea2ed993288e749&qid=1765237223&sr=8-1"
++              target="_blank"
++              rel="noopener noreferrer"
++            >
++              Comprar na Amazon
++            </a>
++          </div>
++
++          <div class="store-text">
++            <p>
++              Além da Amazon, “Nos Bastidores da Disney” também pode ser encontrado em lojas como Submarino,
++              Americanas e diversas livrarias físicas e online. Trata-se de uma leitura essencial para quem
++              deseja entender, em profundidade, como cultura, processos e pessoas podem transformar completamente
++              a experiência do cliente.
++            </p>
++            <p>
++              Use o conteúdo do livro como inspiração prática para repensar rotinas, fluxos de atendimento,
++              jornadas de usuários e formas de reconhecimento interno. A verdadeira magia acontece onde quase
++              ninguém vê: nos bastidores.
++            </p>
++          </div>
++        </div>
++      </div>
++    </section>
++  </main>
++
++  <footer>
++    ©️ 2025 — Projeto acadêmico desenvolvido por <span>Pedro Zen</span>.
++  </footer>
++
++  <script>
++    // Dark mode
++    const body = document.body;
++    const darkToggle = document.getElementById("darkToggle");
++
++    const savedTheme = localStorage.getItem("disneyTheme");
++    if (savedTheme === "dark") {
++      body.classList.add("dark-mode");
++    }
++
++    function updateToggleLabel() {
++      if (body.classList.contains("dark-mode")) {
++        darkToggle.innerHTML = '<span>Modo Light</span> ☀️';
++      } else {
++        darkToggle.innerHTML = '<span>Modo Dark</span> 🌙';
++      }
++    }
++    updateToggleLabel();
++
++    darkToggle.addEventListener("click", () => {
++      body.classList.toggle("dark-mode");
++      localStorage.setItem("disneyTheme", body.classList.contains("dark-mode") ? "dark" : "light");
++      updateToggleLabel();
++    });
++
++    // Typing effect
++    const typingElement = document.getElementById("typingText");
++    const fullText = typingElement.dataset.text || "";
++    let index = 0;
++
++    function type() {
++      if (index <= fullText.length) {
++        typingElement.textContent = fullText.slice(0, index);
++        index++;
++        setTimeout(type, 35);
++      }
++    }
++    type();
++  </script>
++</body>
++</html>
